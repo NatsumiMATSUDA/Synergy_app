@@ -129,12 +129,8 @@ public static function addEntryState($entry_state)
   * @param string $category
   * @return array $activityData //categoryの番号に基づいたデータを返す
   */
-  function getEntryActivitiesByUserIdAndCategory($user_id, $category, $paging)
+  function getEntryActivitiesByUserIdAndCategory($user_id, $category)
   {
-    $page = isset($paging['page']) ? $paging['page'] : 1;
-    $count = isset($paging['count']) ? $paging['count'] : 10;
-    $offset = ($page - 1) * $count;
-
     $sql = "
       SELECT
         activities.*,
@@ -144,9 +140,7 @@ public static function addEntryState($entry_state)
         RIGHT JOIN activity_entry_states
         ON activity_entry_states.activity_id = activities.id
       WHERE activities.category = :category AND activity_entry_states.user_id = :user_id
-      ORDER BY activities.start_date DESC
-      LIMIT " . $offset . ", " . $count . "
-      ";
+      ORDER BY activities.start_date DESC";
 
     $stmt = connect()->prepare($sql);
 
@@ -175,11 +169,7 @@ public static function addEntryState($entry_state)
     return $entryState;
   }
 
-  function getAllUserFromEntryState($activity_id, $paging) {
-    $page = isset($paging['page']) ? $paging['page'] : 1;
-    $count = isset($paging['count']) ? $paging['count'] : 10;
-    $offset = ($page - 1) * $count;
-
+  function getAllUserFromEntryState($activity_id) {
     $sql = "
       SELECT
         users.*,
@@ -189,9 +179,7 @@ public static function addEntryState($entry_state)
         RIGHT JOIN activity_entry_states
         ON activity_entry_states.user_id = users.id
       WHERE activity_entry_states.activity_id = :activity_id
-      ORDER BY users.user_name DESC
-      LIMIT " . $offset . ", " . $count . "
-      ";
+      ORDER BY users.user_name DESC";
 
     $stmt = connect()->prepare($sql);
 

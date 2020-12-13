@@ -43,10 +43,7 @@ class ReportController extends BaseController {
     $is_owner = $activity['user_id'] === $login_user['id'];
     $activity_create_user = $is_owner ? $login_user : UserModel::getUserById($activity['user_id']);
 
-    $attendees = ActivityModel::getAllUserFromEntryState($activity_id, array(
-      'count' => 1000,
-      'page' => 1
-    ));
+    $attendees = ActivityModel::getAllUserFromEntryState($activity_id);
     $attendees = array_filter($attendees, function($attendee, $key) {
       return $attendee['state'] == 5;
     }, ARRAY_FILTER_USE_BOTH);
@@ -156,10 +153,7 @@ class ReportController extends BaseController {
       }
     }
 
-    $attendees = ActivityModel::getAllUserFromEntryState($activity_id, array(
-      'count' => 1000,
-      'page' => 1
-    ));
+    $attendees = ActivityModel::getAllUserFromEntryState($activity_id);
     $attendees = array_filter($attendees, function($attendee, $key) {
       return $attendee['state'] == 5;
     }, ARRAY_FILTER_USE_BOTH);

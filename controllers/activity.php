@@ -143,10 +143,7 @@ class ActivityController extends BaseController {
 
     $login_user = parent::getLoginUser();
     $entry_state = ActivityModel::getEntryState($activity_id, $login_user['id']);
-    $attendees = ActivityModel::getAllUserFromEntryState($activity_id, array(
-      'count' => 20,
-      'page' => 1
-    ));
+    $attendees = ActivityModel::getAllUserFromEntryState($activity_id);
 
     $is_owner = $activity['user_id'] === $login_user['id'];
     $activity_create_user = $is_owner ? $login_user : UserModel::getUserById($activity['user_id']);
@@ -162,6 +159,29 @@ class ActivityController extends BaseController {
     $isRecruiting = $activity['recruitment_state'] == 1;
 
     $reports = ReportModel::getReportsByActivityId($activity_id);
+    $user_name_map = [];
+    $user_ids = [];
+
+    if($reports && count($reports)) {
+      foreach ($reports as $report) {
+        array_push($user_ids, $report['user_id']);
+        array_push($user_ids, $report['leadership']);
+        array_push($user_ids, $report['ideaman']);
+        array_push($user_ids, $report['writer']);
+        array_push($user_ids, $report['presenter']);
+        array_push($user_ids, $report['mvp']);
+      }
+
+      $user_ids = array_unique($user_ids);
+      $user_ids = count($user_ids) ? $user_ids : array();
+
+      $users = UserModel::getUserByIds($user_ids);
+      if(count($users)) {
+        foreach ($users as $user) {
+          $user_name_map[$user['id']] = $user['user_name'];
+        }
+      }
+    }
 
     $view = dirname(dirname(__FILE__))."/views/pages/activity/detail/index.php";
     includeTemplateWithVariables('default', $view, array(
@@ -173,6 +193,7 @@ class ActivityController extends BaseController {
       'isEnd' => $isEnd,
       'isRecruiting' => $isRecruiting,
       'reports' => $reports,
+      'user_name_map' => $user_name_map,
     ));
   }
 
@@ -264,10 +285,7 @@ class ActivityController extends BaseController {
       die();
     }
 
-    $attendees = ActivityModel::getAllUserFromEntryState($activity_id, array(
-      'count' => 20,
-      'page' => 1
-    ));
+    $attendees = ActivityModel::getAllUserFromEntryState($activity_id);
 
     $attendees = array_filter($attendees, function($attendee, $key) {
       return $attendee['state'] == 3 || $attendee['state'] == 5 || $attendee['state'] == 6;

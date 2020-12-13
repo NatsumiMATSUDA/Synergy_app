@@ -13,18 +13,9 @@ class MyPageController extends BaseController {
 
     $login_user = parent::getLoginUser();
 
-    $activities1 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 1, array(
-      'page' => 1,
-      'count' => 10,
-    ));
-    $activities2 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 2, array(
-      'page' => 1,
-      'count' => 10,
-    ));
-    $activities3 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 3, array(
-      'page' => 1,
-      'count' => 10,
-    ));
+    $activities1 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 1);
+    $activities2 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 2);
+    $activities3 = ActivityModel::getEntryActivitiesByUserIdAndCategory($login_user['id'], 3);
 
     $view = dirname(dirname(__FILE__))."/views/pages/mypage.php";
     includeTemplateWithVariables('default', $view, array(

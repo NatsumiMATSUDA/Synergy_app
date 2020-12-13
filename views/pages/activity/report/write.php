@@ -68,7 +68,7 @@
               <option value="0"></option>
               <?php
                 foreach($attendees as $attendee) {
-                  if($inputValues['leadership'] == $attendee['id']) {
+                  if($inputValues['ideaman'] == $attendee['id']) {
                     echo "<option selected='selected' value='{$attendee['id']}'>{$attendee['user_name']}</option>";
                   } else {
                     echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";
@@ -84,7 +84,7 @@
               <option value="0"></option>
               <?php
                 foreach($attendees as $attendee) {
-                  if($inputValues['leadership'] == $attendee['id']) {
+                  if($inputValues['writer'] == $attendee['id']) {
                     echo "<option selected='selected' value='{$attendee['id']}'>{$attendee['user_name']}</option>";
                   } else {
                     echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";
@@ -100,7 +100,7 @@
               <option value="0"></option>
               <?php
                 foreach($attendees as $attendee) {
-                  if($inputValues['leadership'] == $attendee['id']) {
+                  if($inputValues['presenter'] == $attendee['id']) {
                     echo "<option selected='selected' value='{$attendee['id']}'>{$attendee['user_name']}</option>";
                   } else {
                     echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";
@@ -116,7 +116,7 @@
               <option value="0"></option>
               <?php
                 foreach($attendees as $attendee) {
-                  if($inputValues['leadership'] == $attendee['id']) {
+                  if($inputValues['mvp'] == $attendee['id']) {
                     echo "<option selected='selected' value='{$attendee['id']}'>{$attendee['user_name']}</option>";
                   } else {
                     echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";

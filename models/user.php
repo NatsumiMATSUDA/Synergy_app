@@ -131,6 +131,27 @@ class UserModel
     }
     return $result;
   }
+
+  public function getUserByIds($user_ids) {
+    // SQLの準備
+    // SQLの実行
+    // SQLの結果を返す
+    $sql = 'SELECT * FROM users WHERE id in (?)';
+
+    //idを配列に入れる
+    $arr = [];
+    $arr[] = join(',', $user_ids);
+
+    try{
+      $stmt = connect()->prepare($sql);
+      $stmt->execute($arr);
+      // SQLの結果を返す
+      $users = $stmt->fetchall(PDO::FETCH_ASSOC);
+      return $users;
+    } catch(\Exception $e) {
+      return [];
+    }
+  }
 }
 
  ?>

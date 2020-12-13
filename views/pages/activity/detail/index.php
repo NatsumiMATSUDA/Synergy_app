@@ -123,35 +123,42 @@
             'presenter' => array(),
             'mvp' => array(),
           );
-
-          $user_map = array();
+;
           foreach ($reports as $report) {
-            $user_map[$report['user_id']] = $report['user_name'];
-
-            if(!isset($counters['leadership'][$report['user_id']])) {
-              $counters['leadership'][$report['user_id']] = 0;
+            if($report['leadership']) {
+              if(!isset($counters['leadership'][$report['leadership']])) {
+                $counters['leadership'][$report['leadership']] = 0;
+              }
+              $counters['leadership'][$report['leadership']]++;
             }
-            $counters['leadership'][$report['user_id']]++;
 
-            if(!isset($counters['ideaman'][$report['user_id']])) {
-              $counters['ideaman'][$report['user_id']] = 0;
+            if($report['ideaman']) {
+              if(!isset($counters['ideaman'][$report['ideaman']])) {
+                $counters['ideaman'][$report['ideaman']] = 0;
+              }
+              $counters['ideaman'][$report['ideaman']]++;
             }
-            $counters['ideaman'][$report['user_id']]++;
 
-            if(!isset($counters['writer'][$report['user_id']])) {
-              $counters['writer'][$report['user_id']] = 0;
+            if($report['writer']) {
+              if(!isset($counters['writer'][$report['writer']])) {
+                $counters['writer'][$report['writer']] = 0;
+              }
+              $counters['writer'][$report['writer']]++;
             }
-            $counters['writer'][$report['user_id']]++;
 
-            if(!isset($counters['presenter'][$report['user_id']])) {
-              $counters['presenter'][$report['user_id']] = 0;
+            if($report['presenter']) {
+              if(!isset($counters['presenter'][$report['presenter']])) {
+                $counters['presenter'][$report['presenter']] = 0;
+              }
+              $counters['presenter'][$report['presenter']]++;
             }
-            $counters['presenter'][$report['user_id']]++;
 
-            if(!isset($counters['mvp'][$report['user_id']])) {
-              $counters['mvp'][$report['user_id']] = 0;
+            if($report['mvp']) {
+              if(!isset($counters['mvp'][$report['mvp']])) {
+                $counters['mvp'][$report['mvp']] = 0;
+              }
+              $counters['mvp'][$report['mvp']]++;
             }
-            $counters['mvp'][$report['user_id']]++;
           }
         ?>
 
@@ -202,7 +209,7 @@
                 <?php $winner = array_search(max($counters['leadership']), $counters['leadership']); ?>
 
                 <p class="float-right"><?= count($reports) ?>人に対して、<?= $counters['leadership'][$winner] ?>人に選ばれました</p>
-                <p class="mb-2">リーダーシップ : <span class="font-weight-bold"><?= $user_map[$winner] ?></span>さん</p>
+                <p class="mb-2">リーダーシップ : <span class="font-weight-bold"><?= $user_name_map[$winner] ?></span>さん</p>
                 <hr />
               <?php endif; ?>
 
@@ -211,16 +218,15 @@
                 <?php $winner = array_search(max($counters['ideaman']), $counters['ideaman']); ?>
 
                 <p class="float-right"><?= count($reports) ?>人に対して、<?= $counters['ideaman'][$winner] ?>人に選ばれました</p>
-                <p class="mb-2">アイディアマン : <span class="font-weight-bold"><?= $user_map[$winner] ?></span>さん</p>
+                <p class="mb-2">アイディアマン : <span class="font-weight-bold"><?= $user_name_map[$winner] ?></span>さん</p>
                 <hr />
               <?php endif; ?>
 
               <?php if(count($counters['writer'])): ?>
 
-                <?php $winner = array_search(max($counters['writer']), $counters['writer']); ?>
-
+                <?php $winner = array_search(max($counters['writer']), $counters['writer']);?>
                 <p class="float-right"><?= count($reports) ?>人に対して、<?= $counters['writer'][$winner] ?>人に選ばれました</p>
-                <p class="mb-2">ライター : <span class="font-weight-bold"><?= $user_map[$winner] ?></span>さん</p>
+                <p class="mb-2">ライター : <span class="font-weight-bold"><?= $user_name_map[$winner] ?></span>さん</p>
                 <hr />
               <?php endif; ?>
 
@@ -229,16 +235,16 @@
                 <?php $winner = array_search(max($counters['presenter']), $counters['presenter']); ?>
 
                 <p class="float-right"><?= count($reports) ?>人に対して、<?= $counters['presenter'][$winner] ?>人に選ばれました</p>
-                <p class="mb-2">プレエンター : <span class="font-weight-bold"><?= $user_map[$winner] ?></span>さん</p>
+                <p class="mb-2">プレエンター : <span class="font-weight-bold"><?= $user_name_map[$winner] ?></span>さん</p>
                 <hr />
               <?php endif; ?>
-
               <?php if(count($counters['mvp'])): ?>
 
                 <?php $winner = array_search(max($counters['mvp']), $counters['mvp']); ?>
 
                 <p class="float-right"><?= count($reports) ?>人に対して、<?= $counters['mvp'][$winner] ?>人に選ばれました</p>
-                <p class="mb-2">MVP : <span class="font-weight-bold"><?= $user_map[$winner] ?></span>さん</p>
+                <p class="mb-2">MVP : <span class="font-weight-bold"><?= $user_name_map[$winner] ?></span>さん</p>
+                <hr />
               <?php endif; ?>
             </div>
           </div>
