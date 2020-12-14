@@ -12,10 +12,10 @@ class ActivityModel
     $sql = 'SELECT * FROM activities WHERE category = :category';
     $stmt = connect()->prepare($sql);
 
-    $stmt -> bindValue(':category', (int)$category, PDO::PARAM_INT);//int型に変換して受け取った情報をint専用のオプションで受け取り、WHEREの方に返してあげる
-    //②SQLの実行
+    $stmt -> bindValue(':category', (int)$category, PDO::PARAM_INT);
+
     $stmt -> execute();
-    //③SQLの結果を受け取る
+
     $activityData = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $activityData;
   }
@@ -28,25 +28,23 @@ class ActivityModel
   */
   public static function createActivity($activity)
   {
-    $result = false;//デフォルトをfalseに指定する。処理がなされると自動的にtrueになる
+    $result = false;
 
-    $sql = 'INSERT INTO activities (user_id, category, activity_title, start_date, end_date, content, recruitment_state) VALUES(?, ?, ?, ?, ?, ?, ?) ';//日付入ってない
+    $sql = 'INSERT INTO activities (user_id, category, activity_title, start_date, end_date, content, recruitment_state) VALUES(?, ?, ?, ?, ?, ?, ?) ';
 
-    //ユーザデータを配列に入れる
     $arr = [];
     $arr[] = $activity['user_id'];
     $arr[] = $activity['category'];
     $arr[] = $activity['activity_title'];
     $arr[] = $activity['start_date'];
     $arr[] = $activity['end_date'];
-    //$arr[] = $activityData['']//日付をどうやっていれる？？
     $arr[] = $activity['content'];
     $arr[] = $activity['recruitment_state'];
 
     try{
       $db = connect();
       $stmt = $db->prepare($sql);
-      $result = $stmt->execute($arr);//executeは返り値がbool。処理がうまくいったか確認するためにresultにtrue/falseを格納
+      $result = $stmt->execute($arr);
       if($result) {
         return $db->lastInsertId();
       }
@@ -69,7 +67,7 @@ public static function addEntryState($entry_state)
 
   $sql = 'INSERT INTO activity_entry_states (activity_id, user_id, state) VALUES(?, ?, ?) ';
 
-  //ユーザデータを配列に入れる
+  //活動エントリー
   $arr = [];
   $arr[] = $entry_state['activity_id'];
   $arr[] = $entry_state['user_id'];
@@ -77,7 +75,7 @@ public static function addEntryState($entry_state)
 
   try{
     $stmt = connect()->prepare($sql);
-    $result = $stmt->execute($arr);//executeは返り値がbool。処理がうまくいったか確認するためにresultにtrue/falseを格納
+    $result = $stmt->execute($arr);
     return $result;
   } catch(\Exception $e) {
     var_dump($e);
@@ -106,7 +104,6 @@ public static function addEntryState($entry_state)
   {
     $sql = 'SELECT * FROM activities WHERE id = ?';
 
-    //emailを配列に入れる
     $arr = [];
     $arr[] = $id;
 
@@ -114,7 +111,7 @@ public static function addEntryState($entry_state)
     try{
       $stmt = connect()->prepare($sql);
       $stmt->execute($arr);
-      // SQLの結果を返す
+
       $user = $stmt->fetch();
       return $user;
     } catch(\Exception $e) {
@@ -144,11 +141,11 @@ public static function addEntryState($entry_state)
 
     $stmt = connect()->prepare($sql);
 
-    $stmt -> bindValue(':user_id', (int)$user_id, PDO::PARAM_INT);//int型に変換して受け取った情報をint専用のオプションで受け取り、WHEREの方に返してあげる
+    $stmt -> bindValue(':user_id', (int)$user_id, PDO::PARAM_INT);
     $stmt -> bindValue(':category', (int)$category, PDO::PARAM_INT);
-    //②SQLの実行
+
     $stmt -> execute();
-    //③SQLの結果を受け取る
+
     $activityData = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $activityData;
   }
@@ -162,9 +159,9 @@ public static function addEntryState($entry_state)
 
     $stmt -> bindValue(':activity_id', (int)$activity_id, PDO::PARAM_INT);
     $stmt -> bindValue(':user_id', (int)$user_id, PDO::PARAM_INT);
-    //②SQLの実行
+
     $stmt -> execute();
-    //③SQLの結果を受け取る
+
     $entryState = $stmt->fetch(PDO::FETCH_ASSOC);
     return $entryState;
   }
@@ -184,9 +181,9 @@ public static function addEntryState($entry_state)
     $stmt = connect()->prepare($sql);
 
     $stmt -> bindValue(':activity_id', (int)$activity_id, PDO::PARAM_INT);
-    //②SQLの実行
+
     $stmt -> execute();
-    //③SQLの結果を受け取る
+
     $users = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $users;
   }
@@ -221,9 +218,8 @@ public static function addEntryState($entry_state)
     }
     $stmt->bindValue(':keywords', (string)'%'.$keywords.'%', PDO::PARAM_STR);
 
-    //②SQLの実行
     $stmt->execute();
-    //③SQLの結果を受け取る
+
     $activityData = $stmt->fetchall(PDO::FETCH_ASSOC);
     return $activityData;
   }

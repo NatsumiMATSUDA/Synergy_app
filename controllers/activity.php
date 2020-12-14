@@ -69,7 +69,7 @@ class ActivityController extends BaseController {
     $end_date_time = strtotime($end_year."/".$end_month."/".$end_day);
 
     if($start_date_time > $end_date_time) {
-      $err['end_date'] = '終了日が間違えています';
+      $err['end_date'] = '終了日は開始日よりも後の日付に設定してください。';
     }
 
     if(!$category = filter_input(INPUT_POST, 'category')) {
@@ -81,7 +81,7 @@ class ActivityController extends BaseController {
     }
 
 
-    $this->inputValues = array(
+    $this->inputValues = array(//activities
       'content' => $content,
       'activity_title' => $activity_title,
       'start_year' => $start_year,
@@ -103,7 +103,7 @@ class ActivityController extends BaseController {
         'recruitment_state' => $recruitment_state,
         'start_date' => date('Y/m/d', $start_date_time),
         'end_date' => date('Y/m/d', $end_date_time),
-      ));//成功したか確認するために結果true/falseを変数に格納
+      ));
 
       $hasCreated = false;
       if($activity_id) {
@@ -206,7 +206,7 @@ class ActivityController extends BaseController {
     $state_id = filter_input(INPUT_POST, 'state_id');
     $user_id = filter_input(INPUT_POST, 'user_id');
     $context = filter_input(INPUT_POST, 'context');
-
+    //作成者であることを確認してから、出席者確認を表示する
     if(!$activity_id || !$state_id) {
       header("Location: ".APP_URL."/mypage");
     }

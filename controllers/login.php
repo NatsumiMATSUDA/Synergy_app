@@ -33,7 +33,7 @@ class LoginController extends BaseController {
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $err['email'] = 'メールアドレスのフォーマットが間違っています';
+      $err['email'] = 'メールアドレスのフォーマットが違います';
     }
 
     if(!$password = filter_input(INPUT_POST, 'password')) {
@@ -47,7 +47,7 @@ class LoginController extends BaseController {
       die();
     }
 
-    $err['alert'] = 'メールアドレス、またはパスワードが間違えています。';
+    $err['alert'] = 'メールアドレス、またはパスワードが違います。';
     $this->inputValues = array(
       'email' => $email
     );

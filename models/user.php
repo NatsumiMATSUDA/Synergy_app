@@ -21,7 +21,7 @@ class UserModel
 
     try{
       $stmt = connect()->prepare($sql);
-      $result = $stmt->execute($arr);//executeは返り値がbool。処理がうまくいったか確認するためにresultにtrue/falseを格納
+      $result = $stmt->execute($arr);
       return $result;
     } catch(\Exception $e) {
       return false;

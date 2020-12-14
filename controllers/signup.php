@@ -41,7 +41,7 @@ class SignupController extends BaseController {
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $err['email'] = 'メールアドレスのフォーマットが間違っています';
+      $err['email'] = 'メールアドレスのフォーマットが違います。';
     }
 
     if(!$password = filter_input(INPUT_POST, 'password')) {
@@ -49,7 +49,7 @@ class SignupController extends BaseController {
     }
 
     if(!$password_conf = filter_input(INPUT_POST, 'password_conf')) {
-      $err['password_conf'] = 'パスワードの確認を記入してください。';
+      $err['password_conf'] = '確認パスワードを記入してください。';
     }
 
     if($password && $password_conf && $password_conf !== $password) {
@@ -58,7 +58,7 @@ class SignupController extends BaseController {
 
     $checkUser = UserModel::getUserByEmail($email);
     if($checkUser) {
-      $err['alert'] = 'メールアドレスはもう使われています';
+      $err['alert'] = 'メールアドレスは既に使われています';
     }
 
     $this->inputValues = array(

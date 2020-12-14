@@ -36,7 +36,7 @@ Route::add('/login', function() {
 }, 'post');
 
 /*
- * 新規登録
+ * ユーザー新規登録
  */
 Route::add('/signup', function() {
   $controller = new SignupController;
@@ -124,7 +124,7 @@ Route::add('/search', function() {
 }, 'get');
 
 /*
- * ユーザ情報変更画面
+ * ユーザ情報変更画面（開発中!）
  */
 Route::add('/account', function() {
   $controller = new AccountController;

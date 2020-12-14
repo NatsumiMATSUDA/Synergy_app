@@ -47,7 +47,7 @@
           </div>
 
           <div class="form-group mb-4">
-            <label for="leadership">リーダシップ</label>
+            <label for="leadership">リーダーシップ</label>
             <select class="form-control" name="leadership">
               <option value="0"></option>
               <?php
@@ -103,7 +103,7 @@
                   if($inputValues['presenter'] == $attendee['id']) {
                     echo "<option selected='selected' value='{$attendee['id']}'>{$attendee['user_name']}</option>";
                   } else {
-                    echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";
+                    echo "<option value='{$attendee['id']}'>{$attendee['user_name']}</option>";//選択されたuser_idをvalueにする
                   }
                 }
               ?>

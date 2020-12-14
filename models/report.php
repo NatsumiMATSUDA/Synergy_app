@@ -9,7 +9,7 @@ class ReportModel
   */
   public static function createReport($report)
   {
-    $result = false;//デフォルトをfalseに指定する。処理がなされると自動的にtrueになる
+    $result = false;
 
     //reportsテーブルに入れる
     $sql = 'INSERT INTO reports (activity_id, user_id, impression, contribution, leadership, ideaman, writer, presenter, mvp) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) ';
@@ -27,7 +27,7 @@ class ReportModel
 
     try{
       $stmt = connect()->prepare($sql);
-      $result = $stmt->execute($arr);//executeは返り値がbool。処理がうまくいったか確認するためにresultにtrue/falseを格納
+      $result = $stmt->execute($arr);
     } catch(\Exception $e) {
       return $e;
     }
@@ -69,7 +69,6 @@ class ReportModel
   public function getReportByActivityIdAndUserId($activity_id, $user_id) {
     $sql = 'SELECT * FROM reports WHERE activity_id = ? AND user_id = ?';
 
-    //emailを配列に入れる
     $arr = [];
     $arr[] = $activity_id;
     $arr[] = $user_id;
@@ -77,7 +76,7 @@ class ReportModel
     try{
       $stmt = connect()->prepare($sql);
       $stmt->execute($arr);
-      // SQLの結果を返す
+
       return $stmt->fetch();
     } catch(\Exception $e) {
       return false;
@@ -87,14 +86,13 @@ class ReportModel
   public function getReportsByActivityId($activity_id) {
     $sql = 'SELECT reports.*, users.user_name FROM reports RIGHT JOIN users ON users.id = reports.user_id WHERE activity_id = ? ORDER BY created_at DESC';
 
-    //emailを配列に入れる
     $arr = [];
     $arr[] = $activity_id;
 
     try{
       $stmt = connect()->prepare($sql);
       $stmt->execute($arr);
-      // SQLの結果を返す
+      
       return $stmt->fetchall(PDO::FETCH_ASSOC);
     } catch(\Exception $e) {
       return false;

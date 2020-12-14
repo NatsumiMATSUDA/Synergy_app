@@ -11,7 +11,7 @@ function getActivityStateById($id) {
       return "承認済";
       break;
     case 4:
-      return "承認否定";
+      return "承認却下";
       break;
     case 5:
       return "参加済";
@@ -31,7 +31,7 @@ function getActivityCategoryById($id) {
       return "地域貢献";
       break;
     case 2:
-      return "プラグラミング";
+      return "プログラミング";
       break;
     case 3:
       return "ジェンダー";
