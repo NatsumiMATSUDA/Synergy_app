@@ -39,7 +39,7 @@ class UserModel
     //結果
     $result = false;//デフォルトをfalseに設定
     //ユーザをemailから検索して取得
-    $user = self::getUserByEmail($email);
+    $user = self::getUserByEmail($email, true);
 
     if (!$user) {
       $_SESSION['msg'] = 'emailが一致しません。';
@@ -63,12 +63,16 @@ class UserModel
   * @param string $email <- 今回引数は二つ！
   * @return array|bool $user|false <- 成功したらarray(ユーザデータ)、失敗したらbool(false)を返す。
   */
-  public static function getUserByEmail($email)
+  public static function getUserByEmail($email, $includePassword = false)
   {
     // SQLの準備
     // SQLの実行
     // SQLの結果を返す
-    $sql = 'SELECT * FROM users WHERE email = ?';
+    if($includePassword) {
+      $sql = 'SELECT id, user_name, email, password FROM users WHERE email = ?';
+    } else {
+      $sql = 'SELECT id, user_name, email FROM users WHERE email = ?';
+    }
 
     //emailを配列に入れる
     $arr = [];
@@ -96,7 +100,7 @@ class UserModel
     // SQLの準備
     // SQLの実行
     // SQLの結果を返す
-    $sql = 'SELECT * FROM users WHERE id = ?';
+    $sql = 'SELECT id, user_name, email FROM users WHERE id = ?';
 
     //idを配列に入れる
     $arr = [];
@@ -136,11 +140,10 @@ class UserModel
     // SQLの準備
     // SQLの実行
     // SQLの結果を返す
-    $sql = 'SELECT * FROM users WHERE id in (?)';
+    $sql = 'SELECT id, user_name, email FROM users WHERE id in ('.implode(',', $user_ids).')';
 
     //idを配列に入れる
     $arr = [];
-    $arr[] = join(',', $user_ids);
 
     try{
       $stmt = connect()->prepare($sql);
