@@ -12,7 +12,7 @@
 <body>
   <div class="app">
     <main class="container">
-      <?= include($filePath) ?>
+      <? include($filePath) ?>
     </main>
   </div>
 
