@@ -33,7 +33,7 @@ class LoginController extends BaseController {
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $err['email'] = 'メールアドレスのフォーマットが違います';
+      $err['email'] = 'メールアドレスのフォーマットが違います。';
     }
 
     if(!$password = filter_input(INPUT_POST, 'password')) {

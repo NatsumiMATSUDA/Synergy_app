@@ -19,7 +19,7 @@ class SignupController extends BaseController {
     $err = [];
     $csrf_token = h(setToken());
     $view = dirname(dirname(__FILE__))."/views/pages/signup.php";
-    includeTemplateWithVariables('default', $view, array(
+    includeTemplateWithVariables('logout', $view, array(
       'csrf_token' => $csrf_token,
       'err' => [],
       'inputValues' => $this->inputValues
@@ -80,7 +80,7 @@ class SignupController extends BaseController {
     }
 
     $view = dirname(dirname(__FILE__))."/views/pages/signup.php";
-    includeTemplateWithVariables('default', $view, array(
+    includeTemplateWithVariables('logout', $view, array(
       'csrf_token' => $csrf_token,
       'err' => $err,
       'inputValues' => $this->inputValues

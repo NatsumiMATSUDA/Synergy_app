@@ -1,6 +1,6 @@
 <?php include_once dirname(dirname(dirname(__FILE__)))."/utils/activity.php"; ?>
 <h3 class="bd-content-title mb-4">
-  アクティビティ詳細
+  マイページ
 </h3>
 
 <div class="row">
@@ -13,6 +13,19 @@
               <td width="150px"><span class="font-weight-bold">ユーザー名</span></td>
               <td>
                 <?php echo $login_user['user_name']; ?>
+              </td>
+            </tr>
+
+            <tr>
+              <td width="150px"><span class="font-weight-bold">大学名</span></td>
+              <td>
+                津田塾大学
+              </td>
+            </tr>
+            <tr>
+              <td width="150px"><span class="font-weight-bold">学部学科名</span></td>
+              <td>
+                総合政策学部<br />総合政策学科
               </td>
             </tr>
           </tbody>

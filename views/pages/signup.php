@@ -1,6 +1,5 @@
 <h1 class="bd-content-title mb-4">新規ユーザー登録フォーム</h1>
 
-
 <?php if(isset($err['alert'])): ?>
   <div class="alert alert-danger" role="alert">
     <?php echo $err['alert']; ?>
